@@ -7,6 +7,7 @@ from src.routers.evaluator_router import router as evaluator_router
 from src.routers.model_info_router import router as model_info_router
 from src.routers.delete_router import router as delete_router
 from src.routers.count_responses_router import router as count_responses_router
+from src.routers.teacher_evaluation_router import router as teacher_eval_router
 from src.config.db_config import engine, Base
 
 
@@ -22,6 +23,8 @@ app.include_router(delete_router, prefix="/delete", tags=["Delete"])
 app.include_router(
     count_responses_router, prefix="/count-responses", tags=["CountResponses"]
 )
+app.include_router(teacher_eval_router, prefix="/api", tags=["Teacher Evaluation"])
+
 
 app.add_middleware(
     CORSMiddleware,
