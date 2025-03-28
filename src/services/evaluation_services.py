@@ -9,10 +9,11 @@ from ..config.settings import settings
 from ..schemas.openai_schemas import EvaluationOutput
 import os
 
-def calculate_cost(model: str, tokens_used:float) -> float:
+
+def calculate_cost(model: str, tokens_used: float) -> float:
     """
     Calcula el costo basado en la cantidad total de tokens usados y el modelo.
-    
+
     Se asumen tarifas de ejemplo:
       - GPT-4 (o modelos que contengan "gpt-4" o "gpt-4o"): $0.03 por 1,000 tokens.
       - GPT-3.5: $0.002 por 1,000 tokens.
@@ -33,6 +34,7 @@ def calculate_cost(model: str, tokens_used:float) -> float:
     if "copilot" in model_lower:
         return rate * total_tokens
     return (total_tokens / 1000.0) * rate
+
 
 def evaluate_with_openai(
     instruction: str, model_response: str, reference: str
@@ -197,7 +199,12 @@ def evaluate_prometheus(
 
 
 def evaluate_all(
-    instruction: str, model_responses: list, reference_responses: list, rubric: dict, models_evaluated: list, tokens_used: list
+    instruction: str,
+    model_responses: list,
+    reference_responses: list,
+    rubric: dict,
+    models_evaluated: list,
+    tokens_used: list,
 ) -> dict:
     """
     Evalúa un conjunto de respuestas del modelo utilizando múltiples métodos de evaluación,
@@ -244,7 +251,9 @@ def evaluate_all(
     """
     documents = []
 
-    for model_resp, ref_resp, model_used, tokens in zip(model_responses, reference_responses, models_evaluated, tokens_used):
+    for model_resp, ref_resp, model_used, tokens in zip(
+        model_responses, reference_responses, models_evaluated, tokens_used
+    ):
         openai_score = evaluate_with_openai(instruction, model_resp, ref_resp)
 
         feedback, prometheus_score = evaluate_prometheus(
