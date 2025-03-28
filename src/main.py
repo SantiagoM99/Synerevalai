@@ -6,6 +6,7 @@ from src.config.settings import Settings
 from src.routers.evaluator_router import router as evaluator_router
 from src.routers.model_info_router import router as model_info_router
 from src.routers.delete_router import router as delete_router
+from src.routers.count_responses_router import router as count_responses_router
 from src.config.db_config import engine, Base
 
 
@@ -18,6 +19,9 @@ Base.metadata.create_all(bind=engine)
 app.include_router(evaluator_router, prefix="/evaluation", tags=["Evaluation"])
 app.include_router(model_info_router, prefix="/model", tags=["ModelInfo"])
 app.include_router(delete_router, prefix="/delete", tags=["Delete"])
+app.include_router(
+    count_responses_router, prefix="/count-responses", tags=["CountResponses"]
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,7 +29,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 
 @app.get("/")

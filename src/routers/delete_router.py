@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
+
 @router.delete("/items/{item_id}")
 def delete_item(item_id: int):
     """

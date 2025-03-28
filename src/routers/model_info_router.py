@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
+
 @router.get("/info")
 def get_model_info():
     """
@@ -14,5 +15,5 @@ def get_model_info():
     # el nombre del modelo, versión, etc.
     return {
         "model_name": "ollama/llama3.2:3b",
-        "description": "Modelo local para evaluaciones con PrometheusEval."
+        "description": "Modelo local para evaluaciones con PrometheusEval.",
     }
