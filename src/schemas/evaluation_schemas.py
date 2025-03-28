@@ -35,6 +35,14 @@ class EvaluationRequest(BaseModel):
             "score5_description": "The model excels in identifying emotional context and persistently offers empathetic, emotionally aware responses that demonstrate a profound comprehension of the user's emotions or situation.",
         },
     )
+    models_evaluated: List[str] = Field(
+        ...,
+        example=["gpt-4o", "Copilot", "gpt-3.5"],
+    )
+    tokens_used: List[float] = Field(
+        ...,
+        example=[400, 5, 800],
+    )
 
 
 class BERTScore(BaseModel):
@@ -48,3 +56,4 @@ class EvaluationResponse(BaseModel):
     openai_score: EvaluationOutput
     bertscore: BERTScore
     prometheus_score: dict
+    cost: float

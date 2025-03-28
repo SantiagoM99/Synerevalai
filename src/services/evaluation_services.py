@@ -9,6 +9,30 @@ from ..config.settings import settings
 from ..schemas.openai_schemas import EvaluationOutput
 import os
 
+def calculate_cost(model: str, tokens_used:float) -> float:
+    """
+    Calcula el costo basado en la cantidad total de tokens usados y el modelo.
+    
+    Se asumen tarifas de ejemplo:
+      - GPT-4 (o modelos que contengan "gpt-4" o "gpt-4o"): $0.03 por 1,000 tokens.
+      - GPT-3.5: $0.002 por 1,000 tokens.
+      - GitHub Copilot (ejemplo): 0.1 por mensaje procesado.
+    """
+    total_tokens = tokens_used
+    rate = 0.0
+    model_lower = model.lower()
+    if "gpt-4" in model_lower or "gpt-4o" in model_lower:
+        rate = 0.03
+    elif "gpt-3.5" in model_lower:
+        rate = 0.002
+    elif "copilot" in model_lower:
+        rate = 0.1
+    else:
+        rate = 0.002  # tarifa por defecto
+
+    if "copilot" in model_lower:
+        return rate * total_tokens
+    return (total_tokens / 1000.0) * rate
 
 def evaluate_with_openai(
     instruction: str, model_response: str, reference: str
@@ -173,7 +197,7 @@ def evaluate_prometheus(
 
 
 def evaluate_all(
-    instruction: str, model_responses: list, reference_responses: list, rubric: dict
+    instruction: str, model_responses: list, reference_responses: list, rubric: dict, models_evaluated: list, tokens_used: list
 ) -> dict:
     """
     Evalúa un conjunto de respuestas del modelo utilizando múltiples métodos de evaluación,
@@ -182,6 +206,7 @@ def evaluate_all(
       - OpenAI: usando `evaluate_with_openai`
       - BERTScore: calculado de forma individual para cada par de respuesta del modelo y respuesta de referencia.
       - Prometheus-Eval: usando `evaluate_prometheus`
+      - Coste: calculado usando `calculate_cost`.
 
     Además, se incluye la respuesta del modelo en cada objeto de evaluación para identificar cada documento.
 
@@ -195,6 +220,10 @@ def evaluate_all(
         Lista de respuestas de referencia para comparar con las respuestas del modelo.
     rubric : dict
         Diccionario con la rúbrica de calificación para la evaluación con Prometheus-Eval.
+    models_evaluated : list of str
+        Lista de modelos evaluados.
+    tokens_used : list of float
+        Lista de tokens usados por cada modelo evaluado, en caso de que sea copilot esto será el número de respuestas generativas en un modelo.
 
     Returns
     -------
@@ -215,19 +244,21 @@ def evaluate_all(
     """
     documents = []
 
-    for model_resp, ref_resp in zip(model_responses, reference_responses):
+    for model_resp, ref_resp, model_used, tokens in zip(model_responses, reference_responses, models_evaluated, tokens_used):
         openai_score = evaluate_with_openai(instruction, model_resp, ref_resp)
 
         feedback, prometheus_score = evaluate_prometheus(
             instruction, model_resp, ref_resp, rubric
         )
-        bertscore = evaluate_with_bertscore([model_resp], [ref_resp])
 
+        bertscore = evaluate_with_bertscore([model_resp], [ref_resp])
+        cost = calculate_cost(model_used, tokens)
         document_result = {
             "model_response": model_resp,
             "openai_score": openai_score,
             "bertscore": bertscore,
             "prometheus_score": {"feedback": feedback, "score": prometheus_score},
+            "cost": cost,
         }
         documents.append(document_result)
 

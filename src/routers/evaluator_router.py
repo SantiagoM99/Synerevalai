@@ -19,6 +19,8 @@ def evaluate_endpoint(request: EvaluationRequest):
         model_responses=request.model_responses,
         reference_responses=request.reference_responses,
         rubric=request.rubric,
+        models_evaluated=request.models_evaluated,
+        tokens_used=request.tokens_used,
     )
 
     return results
