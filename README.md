@@ -68,7 +68,7 @@ Para correr el servidor de FastAPI correr el siguiente comando:
 ```bash
 uvicorn src.main:app --reload
 ```
-The backend server will be running at `http://127.0.0.1:8000`.
+El servidor estará corriendo `http://127.0.0.1:8000`.
 
 ## Licencia
 
