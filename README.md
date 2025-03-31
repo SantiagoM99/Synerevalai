@@ -63,18 +63,12 @@ Crea un archivo **.env** en la raíz del proyecto con las variables de entorno n
 
 ### 5. Ejecutar la aplicación
 
-Dependiendo de la estructura del proyecto, puedes ejecutar la aplicación utilizando un comando como:
+Para correr el servidor de FastAPI correr el siguiente comando:
 
 ```bash
-python main.py
+uvicorn src.main:app --reload
 ```
-
-
-O, si se utiliza un framework específico, sigue las instrucciones proporcionadas en la documentación del proyecto.
-
-## Contribuciones
-
-Las contribuciones al proyecto son bienvenidas. Si deseas colaborar, por favor sigue los lineamientos establecidos en el repositorio y asegúrate de mantener la coherencia con el estilo y las prácticas del proyecto.
+The backend server will be running at `http://127.0.0.1:8000`.
 
 ## Licencia
 
