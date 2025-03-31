@@ -7,16 +7,24 @@ from ..services.teacher_evaluation_services import process_teacher_evaluation
 
 router = APIRouter()
 
+
 @router.post("/teacher/evaluate")
 def teacher_evaluate(eval_req: str, file: UploadFile = File(...)):
     """
-    Endpoint para que el profesor suba un Excel con las respuestas de los estudiantes y 
-    los parámetros de evaluación (rúbrica, respuestas de referencia, instrucciones, modelos evaluados y tokens usados).
+    Endpoint for the teacher to upload an Excel file with student responses and
+    evaluation parameters (rubric, reference answers, instructions, evaluated models, and tokens used).
 
-    Se espera que los parámetros se envíen en el body en formato JSON.
-    'file' es el Excel con la columna 'student_name' y una columna por cada pregunta.
-    
-    Retorna un Excel con la evaluación de cada estudiante.
+    Parameters
+    ----------
+    eval_req : str
+        JSON string containing the evaluation parameters.
+    file : UploadFile
+        Excel file with a 'student_name' column and one column per question.
+
+    Returns
+    -------
+    StreamingResponse
+        An Excel file with the evaluation results for each student.
     """
     try:
         eval_req_jsn = TeacherEvaluationRequest(**json.loads(eval_req))
