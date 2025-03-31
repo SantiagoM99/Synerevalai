@@ -8,7 +8,7 @@
 
 ---
 
-**Synerevalai** es una herramienta diseñada para evaluar y comparar las respuestas generadas por modelos de lenguaje de gran tamaño (LLMs) utilizando múltiples métricas y enfoques. Su objetivo es proporcionar una evaluación multimodal que permita analizar la calidad y eficacia de las respuestas en diversos contextos.
+**SynerevalAI** es una herramienta diseñada para evaluar y comparar las respuestas generadas por modelos de lenguaje de gran tamaño (LLMs) utilizando múltiples métricas y enfoques. Su objetivo es proporcionar una evaluación multimodal que permita analizar la calidad y eficacia de las respuestas en diversos contextos.
 
 ## Aplicaciones y Objetivos
 
