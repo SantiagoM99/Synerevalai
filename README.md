@@ -8,7 +8,17 @@
 
 ---
 
-**SynerevalAI** es una herramienta diseñada para evaluar y comparar las respuestas generadas por modelos de lenguaje de gran tamaño (LLMs) utilizando múltiples métricas y enfoques. Su objetivo es proporcionar una evaluación multimodal que permita analizar la calidad y eficacia de las respuestas en diversos contextos.
+**SynerevalAI** es una herramienta diseñada para evaluar y comparar las respuestas generadas por modelos de lenguaje de gran tamaño (LLMs) utilizando múltiples métricas y enfoques. Su objetivo es proporcionar una evaluación multimodal que permita analizar la calidad y eficacia de las respuestas en diversos contextos.
+
+## Arquitectura implementada
+
+Esta es la arquitectura implementada. Cuenta con tres herramientas evaluadoras (OpenAI, BERT , Prometheus-eval). También se describe las entradas que se reciben y las salidas que se esperan al evaluar las respuestas de los modelos.
+<p align="center">
+  <br>
+  <img src="https://github.com/user-attachments/assets/679217d2-fc11-4a67-bb8a-ece795663a4a" alt="Arquitectura Benchmark IAU">
+  <br>
+  <em>Arquitectura benchmark SynerevalAI.</em>
+</p>
 
 ## Aplicaciones y Objetivos
 
