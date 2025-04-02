@@ -15,7 +15,7 @@ Below is the implemented architecture, which includes three evaluation tools (Op
 
 <p align="center">
   <br>
-  <img src="https://github.com/user-attachments/assets/679217d2-fc11-4a67-bb8a-ece795663a4a" alt="SynerevalAI Benchmark Architecture">
+  <img src="https://github.com/user-attachments/assets/51b22b59-d3f0-4eb2-9191-afcdd5c6f15b" alt="SynerevalAI Benchmark Architecture">
   <br>
   <em>SynerevalAI benchmark architecture.</em>
 </p>
