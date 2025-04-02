@@ -36,7 +36,7 @@ Below is the implemented architecture, which includes three evaluation tools (Op
 
 ## Local Setup
 
-This project is developed in **Python**.
+This project is developed in **Python**, leveraging the **FastAPI** framework.
 
 ### 1. Clone the Repository
 
